@@ -2,16 +2,16 @@ import numpy as np
 import time
 import os
 
-# --- Konfigurace ---
-# Změňte 'cls' na 'clear' pro Linux/macOS, pokud to používáte
+# --- Configuration ---
+# Change 'cls' to 'clear' for Linux/macOS if you are using it
 CLEAR_COMMAND = 'cls' 
 
-WIDTH = 60      # Počet sloupců v mřížce
-HEIGHT = 30     # Počet řádků v mřížce
-DELAY_MS = 100  # Zpoždění v milisekundách pro každou generaci (původně 0, ale pro viditelnou simulaci je potřeba)
-DELAY_S = DELAY_MS / 1000.0 # Převod na sekundy
+WIDTH = 60      # Number of columns in the grid
+HEIGHT = 30     # Number of rows in the grid
+DELAY_MS = 100  # Delay in milliseconds for each generation (originally 0, but needed for visible simulation)
+DELAY_S = DELAY_MS / 1000.0 # Conversion to seconds
 
-# Pulsar pattern - ofsety buněk (řádek, sloupec)
+# Pulsar pattern - cell offsets (row, column)
 PULSAR_PATTERN = np.array([
     [1, 3], [1, 4], [1, 5],
     [1, 9], [1, 10], [1, 11],
@@ -29,25 +29,25 @@ PULSAR_PATTERN = np.array([
     [13, 9], [13, 10], [13, 11],
 ])
 
-# --- Funkce ---
+# --- Functions ---
 
 def count_live_neighbors(grid: np.ndarray, x: int, y: int) -> int:
     """
-    Spočítá počet živých sousedů pro danou buňku.
-    Používá cyklické obcházení všech 8 sousedů.
+    Counts the number of live neighbors for a given cell.
+    Uses cyclic iteration over all 8 neighbors.
     """
     count = 0
-    # Iteruje přes sousedy v okolí 3x3
+    # Iterate over neighbors in the 3x3 area
     for i in range(-1, 2):
         for j in range(-1, 2):
-            # Přeskoč vlastní buňku
+            # Skip the cell itself
             if i == 0 and j == 0:
                 continue
 
             neighbor_x = x + i
             neighbor_y = y + j
 
-            # Kontrola hranic
+            # Boundary check
             if 0 <= neighbor_x < HEIGHT and 0 <= neighbor_y < WIDTH:
                 if grid[neighbor_x, neighbor_y] == 1:
                     count += 1
@@ -55,20 +55,20 @@ def count_live_neighbors(grid: np.ndarray, x: int, y: int) -> int:
 
 def print_grid(grid: np.ndarray):
     """
-    Vytiskne aktuální mřížku do konzole po vymazání obrazovky.
+    Prints the current grid to the console after clearing the screen.
     """
     os.system(CLEAR_COMMAND) 
     
-    # Rychlejší tisk mřížky
+    # Faster grid printing
     output = ""
     for row in grid:
-        # Převedení pole čísel na řetězec 'X' a ' '
+        # Convert array of numbers to a string of 'X' and ' '
         output += "".join(['X' if cell == 1 else ' ' for cell in row]) + "\n"
     print(output, end='')
 
 def place_pattern(grid: np.ndarray, pattern: np.ndarray, start_x: int, start_y: int):
     """
-    Umístí zadaný vzor na mřížku na specifikované místo.
+    Places the specified pattern onto the grid at the given location.
     """
     for x_offset, y_offset in pattern:
         x = start_x + x_offset
@@ -79,9 +79,9 @@ def place_pattern(grid: np.ndarray, pattern: np.ndarray, start_x: int, start_y: 
 
 def update_grid(current_grid: np.ndarray) -> np.ndarray:
     """
-    Vypočítá další generaci na základě pravidel Hry života.
+    Calculates the next generation based on the Game of Life rules.
     """
-    # Vytvoření nové mřížky pro další generaci
+    # Create a new grid for the next generation
     next_grid = np.zeros((HEIGHT, WIDTH), dtype=int)
 
     for i in range(HEIGHT):
@@ -91,59 +91,59 @@ def update_grid(current_grid: np.ndarray) -> np.ndarray:
             is_alive = current_grid[i, j] == 1
 
             if is_alive:
-                # 1. & 3. Živá buňka s < 2 nebo > 3 sousedy umírá
+                # 1. & 3. A live cell with < 2 or > 3 neighbors dies
                 if neighbors == 2 or neighbors == 3:
-                    next_grid[i, j] = 1  # 2. Přežívá
+                    next_grid[i, j] = 1  # 2. Continues living
                 else:
-                    next_grid[i, j] = 0  # Umírá
+                    next_grid[i, j] = 0  # Dies
             else:
-                # 4. Mrtvá buňka s přesně 3 sousedy ožívá
+                # 4. A dead cell with exactly 3 neighbors comes to life
                 if neighbors == 3:
-                    next_grid[i, j] = 1  # Ožívá (reprodukce)
+                    next_grid[i, j] = 1  # Becomes alive (reproduction)
                 else:
-                    next_grid[i, j] = 0  # Zůstává mrtvá
+                    next_grid[i, j] = 0  # Remains dead
     
     return next_grid
 
-# --- Hlavní smyčka ---
+# --- Main Loop ---
 
 def main():
     """
-    Hlavní simulační smyčka.
+    Main simulation loop.
     """
-    # Inicializace mřížky s nulami
+    # Initialize the grid with zeros
     current_grid = np.zeros((HEIGHT, WIDTH), dtype=int)
     
-    # Umístění Pulsar vzoru
+    # Place the Pulsar pattern
     start_row = 10
     start_col = 20
     place_pattern(current_grid, PULSAR_PATTERN, start_row, start_col)
     
-    print(f"Spouštění simulace Conwayovy hry života (Pulsar) v Pythonu.")
-    print(f"Velikost mřížky: {HEIGHT}x{WIDTH}, Zpoždění: {DELAY_MS}ms. Stiskněte Ctrl+C pro ukončení.")
-    time.sleep(2) # Malé zpoždění před startem
+    print(f"Starting Conway's Game of Life (Pulsar) simulation in Python.")
+    print(f"Grid size: {HEIGHT}x{WIDTH}, Delay: {DELAY_MS}ms. Press Ctrl+C to stop.")
+    time.sleep(2) # Small delay before start
 
     try:
         while True:
-            # 1. Zobrazení aktuální mřížky
+            # 1. Display the current grid
             print_grid(current_grid)
 
-            # 2. Výpočet další generace
+            # 2. Calculate the next generation
             current_grid = update_grid(current_grid)
 
-            # 4. Zpoždění pro vizualizaci
+            # 4. Delay for visualization
             time.sleep(DELAY_S)
             
     except KeyboardInterrupt:
-        # Ukončení programu po stisku Ctrl+C
-        print("\nSimulace byla ukončena uživatelem.")
+        # Program termination upon pressing Ctrl+C
+        print("\nSimulation terminated by user.")
         
 if __name__ == "__main__":
-    # Kontrola, zda je nainstalován numpy (nutné)
+    # Check if numpy is installed (required)
     try:
         import numpy
     except ImportError:
-        print("Chyba: Kód vyžaduje knihovnu numpy. Nainstalujte ji pomocí: pip install numpy")
+        print("Error: This code requires the numpy library. Install it using: pip install numpy")
         exit(1)
         
     main()
