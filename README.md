@@ -1,5 +1,10 @@
 # Game of Life (Python)
 
+![Python](https://img.shields.io/badge/language-python-blue.svg)
+![License](https://img.shields.io/github/license/hrosicka/game-of-life-python)
+![Last Commit](https://img.shields.io/github/last-commit/hrosicka/game-of-life-python)
+![GitHub stars](https://img.shields.io/github/stars/hrosicka/game-of-life-python?style=social)
+
 This repository contains Python implementations of Conway's Game of Life, a classic cellular automaton simulation.
 
 ## Features
