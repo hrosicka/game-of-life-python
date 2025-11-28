@@ -1,134 +1,142 @@
 import numpy as np
 import time
 import os
+from typing import Tuple, Dict, Any, Optional
+from scipy.signal import convolve2d
+# Importujeme Rich pro plynulé a profesionální překreslování
+from rich.live import Live 
+from rich.console import Console
+from rich.text import Text
 
-# --- Constants --- 
-WIDTH = 30  # Number of columns in the grid
-HEIGHT = 15 # Number of rows in the grid
-DELAY_SECONDS = 1.0 # Delay between generations
+# Zde předpokládáme, že SciPy je nainstalováno
+try:
+    from scipy.signal import convolve2d
+except ImportError:
+    print("Chyba: Pro tuto verzi je nutné nainstalovat SciPy (pip install scipy).")
+    exit()
 
-# --- Function to clear the screen ---
-def clear_screen():
-    """Clears the console (uses 'cls' for Windows, 'clear' otherwise)."""
-    # Uses 'os.name' to detect the operating system
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-# --- Function to print the grid ---
-def print_grid(grid):
-    """Prints the current state of the grid to the console."""
-    clear_screen()
-    print("Conway's Game of Life")
-    print("-" * (WIDTH * 2))
-    
-    # Iterate over rows
-    for row in grid:
-        # Convert 1 to 'o' (live cell) and 0 to ' ' (dead cell)
-        line = "".join(['o ' if cell == 1 else '  ' for cell in row])
-        print(line)
-    
-    print("-" * (WIDTH * 2))
-    print(f"Dimensions: {HEIGHT}x{WIDTH}")
-
-# --- Function to count neighbors ---
-def count_live_neighbors(grid, x, y):
+class GameOfLife:
     """
-    Counts the number of live neighbors for a given cell (x=row, y=column).
-    Uses wrap-around logic for connecting the edges (toroidal field).
+    Simuluje Conway's Game of Life s využitím SciPy pro výpočet a Rich pro plynulý výstup.
     """
-    count = 0
-    
-    # Iterate over the 3x3 surrounding area
-    for i in range(-1, 2):
-        for j in range(-1, 2):
-            # Skip the current cell
-            if i == 0 and j == 0:
-                continue
+    DEFAULT_CONFIG: Dict[str, Any] = {
+        "width": 30,  
+        "height": 15,
+        "delay_seconds": 1.0,
+        "live_cell_char": "o ",
+        "dead_cell_char": "  "
+    }
 
-            # Calculate the neighbor's position with wrapping
-            neighbor_x = (x + i + HEIGHT) % HEIGHT
-            neighbor_y = (y + j + WIDTH) % WIDTH
-
-            # NumPy array is indexed [row][column]
-            if grid[neighbor_x][neighbor_y] == 1:
-                count += 1
-    return count
-
-# --- Function to calculate the next generation ---
-def next_generation(current_grid):
-    """
-    Calculates the state of the grid for the next generation based on Conway's rules.
-    """
-    # Create a new grid to store the next generation's state
-    # (important: a copy initialized to zeros, so we don't modify the current state)
-    next_grid = np.zeros((HEIGHT, WIDTH), dtype=int)
-
-    # Iterate over every cell
-    for i in range(HEIGHT):
-        for j in range(WIDTH):
-            neighbors = count_live_neighbors(current_grid, i, j)
-            is_alive = current_grid[i][j] == 1
-
-            # Apply Conway's rules
-            if is_alive:
-                # 1. Death by underpopulation or overpopulation (<2 or >3 neighbors)
-                if neighbors < 2 or neighbors > 3:
-                    next_grid[i][j] = 0
-                # 2. Survival (2 or 3 neighbors)
-                else:
-                    next_grid[i][j] = 1
-            else:
-                # 4. Reproduction (exactly 3 neighbors)
-                if neighbors == 3:
-                    next_grid[i][j] = 1
-                # 5. Stays dead
-                else:
-                    next_grid[i][j] = 0
-                    
-    return next_grid
-
-# --- Main execution function ---
-def main():
-    """Sets up the game and runs the main simulation loop."""
-    
-    # Create the initial grid (all cells are dead, 0)
-    # Use NumPy for efficient matrix operations
-    current_grid = np.zeros((HEIGHT, WIDTH), dtype=int)
-    
-    # --- Initialization ---
-    # Set up initial patterns (TOAD oscillators)
-
-    # TOAD 1
-    current_grid[5, 10] = 1
-    current_grid[5, 11] = 1
-    current_grid[5, 12] = 1
-    current_grid[6, 9]  = 1
-    current_grid[6, 10] = 1
-    current_grid[6, 11] = 1
-
-    # TOAD 2
-    current_grid[10, 12] = 1
-    current_grid[10, 13] = 1
-    current_grid[10, 14] = 1
-    current_grid[11, 11] = 1
-    current_grid[11, 12] = 1
-    current_grid[11, 13] = 1
-    
-    # --- Main simulation loop ---
-    try:
-        while True:
-            # 1. Display the current state
-            print_grid(current_grid)
-
-            # 2. Calculate and get the next generation
-            current_grid = next_generation(current_grid)
-
-            # 3. Delay for visualization
-            time.sleep(DELAY_SECONDS)
-            
-    except KeyboardInterrupt:
-        # Allows for graceful program termination by pressing Ctrl+C
-        print("\nSimulation terminated by user.")
+    def __init__(self, config: Optional[Dict[str, Any]] = None):
+        final_config = self.DEFAULT_CONFIG.copy()
+        if config:
+            final_config.update(config)
         
-# Run the main function if the script is executed directly
+        self.width = final_config["width"]
+        self.height = final_config["height"]
+        self.delay_seconds = final_config["delay_seconds"]
+        self.live_char = final_config["live_cell_char"]
+        self.dead_char = final_config["dead_cell_char"]
+
+        self.grid = np.zeros((self.height, self.width), dtype=np.int8)
+        self.generation = 0 
+        # Inicializujeme Rich konzoli
+        self.console = Console()
+
+    def set_initial_pattern(self, pattern_coords: list[Tuple[int, int]]):
+        for r, c in pattern_coords:
+            if 0 <= r < self.height and 0 <= c < self.width:
+                self.grid[r, c] = 1
+
+    # Funkce _clear_screen() a print_grid() jsou nahrazeny metodou get_grid_text()
+    # Tato metoda vygeneruje text, který pak Rich plynule překreslí.
+    
+    def get_grid_text(self) -> Text:
+        """
+        Generuje textovou reprezentaci mřížky pro Rich překreslování.
+        """
+        # --- ZACHOVÁVÁ PŮVODNÍ VIZUÁL ---
+        
+        # Titulek
+        output = ["Conway's Game of Life"]
+        
+        # Ohraničení
+        separator = "-" * (self.width * 2)
+        output.append(separator)
+        
+        # Mřížka
+        for row in self.grid:
+            line = "".join([self.live_char if cell == 1 else self.dead_char for cell in row])
+            output.append(line)
+        
+        # Spodní ohraničení a info
+        output.append(separator)
+        output.append(f"Dimensions: {self.height}x{self.width} | Generation: {self.generation}")
+        
+        # Vracíme Rich Text objekt pro plynulý tisk
+        return Text('\n'.join(output))
+
+    def _get_live_neighbor_count(self) -> np.ndarray:
+        kernel = np.array([[1, 1, 1],
+                           [1, 0, 1],
+                           [1, 1, 1]], dtype=np.int8)
+        
+        neighbor_counts = convolve2d(
+            self.grid, 
+            kernel, 
+            mode='same', 
+            boundary='wrap'
+        ).astype(np.int8)
+        return neighbor_counts
+
+    def next_generation(self):
+        neighbors = self._get_live_neighbor_count()
+        survival_mask = (self.grid == 1) & ((neighbors == 2) | (neighbors == 3))
+        reproduction_mask = (self.grid == 0) & (neighbors == 3)
+        self.grid = (survival_mask | reproduction_mask).astype(np.int8)
+        self.generation += 1
+
+    def run_simulation(self):
+        """Spouští simulaci s plynulým překreslováním Rich Live s manuálním sleep."""
+        
+        self.console.print("🚀 Starting Conway's Game of Life...")
+        time.sleep(1) # Krátká pauza pro úvodní zprávu
+
+        try:
+            # ODSTRANĚN argument refresh_per_second = 1/self.delay_seconds
+            with Live(self.get_grid_text(), console=self.console) as live:
+                while True:
+                    # 1. Spustíme novou generaci a aktualizujeme self.generation
+                    self.next_generation()
+                    
+                    # 2. Aktualizujeme Rich Live objekt novým obsahem
+                    live.update(self.get_grid_text())
+                    
+                    # 3. VRÁCEN time.sleep pro řízení tempa
+                    time.sleep(self.delay_seconds)
+                    
+        except KeyboardInterrupt:
+            self.console.print("\nSimulation terminated by user.")
+        except Exception as e:
+            self.console.print(f"\nAn error occurred: {e}")
+
+# --- Hlavní spouštěcí blok ---
 if __name__ == "__main__":
-    main()
+    
+    game = GameOfLife()
+    
+    # Inicializace - TOAD oscillátory
+    initial_pattern = [
+        (5, 10), (5, 11), (5, 12),
+        (6, 9), (6, 10), (6, 11),
+        (10, 12), (10, 13), (10, 14),
+        (11, 11), (11, 12), (11, 13)
+    ]
+    
+    game.set_initial_pattern(initial_pattern)
+    
+    # Původní titulek se ukáže hned, než Live převezme kontrolu
+    game.console.print("🚀 Starting Conway's Game of Life...")
+    time.sleep(1) 
+    
+    game.run_simulation()
