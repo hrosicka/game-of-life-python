@@ -77,6 +77,7 @@ class GameOfLife:
         # Footer and info
         output.append(separator)
         output.append(f"Dimensions: {self.height}x{self.width} | Generation: {self.generation}")
+        output.append(f"(Press Ctrl+C to stop)")
         
         # Return a Rich Text object for smooth printing
         return Text('\n'.join(output))
