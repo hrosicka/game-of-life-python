@@ -118,14 +118,15 @@ Tips:
   - Install SciPy with `pip install scipy` (or `pip install numpy scipy`).
 - Performance:
   - Very large grids with small delay may be CPU-heavy; increase `delay_seconds` or reduce grid size.
+ 
+---
   
-## ℹAbout Conway’s Game of Life
+## About Conway’s Game of Life
 
 Conway’s Game of Life is a zero-player game—set the rules and observe endless emergent complexity! With simple laws governing cell birth and death, patterns emerge, oscillate, and sometimes surprise even mathematicians.
 
 [Learn more about Conway’s Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
 
----
 ---
 
 ## License
