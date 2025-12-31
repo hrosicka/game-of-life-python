@@ -129,6 +129,12 @@ Conway’s Game of Life is a zero-player game—set the rules and observe endles
 
 ---
 
+## Author
+
+Lovingly crafted by [Hanka Robovska](https://github.com/hrosicka) 👩‍🔬
+
+---
+
 ## License
 
 MIT License. This project is open for educational and entertainment use.
