@@ -1,3 +1,6 @@
+[English](#english) | [Čeština](#čeština)
+
+<a name="english"></a>
 # Game of Life — Python Edition
 
 ![Python](https://img.shields.io/badge/language-python-blue.svg)
@@ -138,3 +141,84 @@ Lovingly crafted by [Hanka Robovska](https://github.com/hrosicka) 👩‍🔬
 ## License
 
 MIT License. This project is open for educational and entertainment use.
+
+---
+---
+
+<a name="čeština"></a>
+# Hra života — Python edice
+
+![Python](https://img.shields.io/badge/language-python-blue.svg)
+![Licence](https://img.shields.io/github/license/hrosicka/game-of-life-python)
+![Poslední commit](https://img.shields.io/github/last-commit/hrosicka/game-of-life-python)
+![GitHub stars](https://img.shields.io/github/stars/hrosicka/game-of-life-python?style=social)
+
+Sada malých, úzce zaměřených simulací Conwayovy hry života implementovaných v Pythonu. Každý skript spouští klasický vzor (oscilátory, kluzáky, Gosperovo dělo na kluzáky, LWSS atd.) a vykresluje živou animaci přímo v terminálu pomocí knihovny [Rich](https://github.com/Textualize/rich). Počítání sousedů je efektivně implementováno pomocí 2D konvoluce skrze [SciPy](https://www.scipy.org) (nebo NumPy + SciPy).
+
+Tento repozitář má sloužit jako:
+- **Vzdělávací pomůcka:** jasný a jednoduchý kód pro studium pravidel a vzorů Hry života.
+- **Vizuální zážitek:** živé vykreslování v terminálu s využitím Rich.
+- **Rozšiřitelný základ:** úpravou skriptů můžete snadno přidávat nové vzory nebo ladit parametry.
+
+---
+
+## Klíčové poznámky k implementaci
+
+- **Vykreslování:** používá živé vykreslování (`rich.live.Live`) pro plynulý a barevný výstup v terminálu.
+- **Výpočet:** využívá `scipy.signal.convolve2d` pro efektivní výpočet počtu sousedů pomocí malých konvolučních jader.
+- **Konfigurace:** každý skript obsahuje slovník `DEFAULT_CONFIG` (šířka, výška, prodleva, znaky) — úpravou těchto hodnot přímo ve skriptu změníte velikost, rychlost a vzhled.
+- **Ukončení:** libovolnou běžící simulaci zastavíte stisknutím `Ctrl+C`.
+- **Zpracování okrajů:**
+  - Většina skriptů používá toroidální (cyklické) hranice (`boundary='wrap'`), takže se mřížka chová jako povrch koblížku (okraje jsou propojené).
+  - Skript pro Gosperovo dělo na kluzáky používá necyklické hranice vyplněné nulami (`boundary='fill'`, `fillvalue=0`), aby lépe odpovídal klasické prezentaci.
+
+---
+
+## Obsažené skripty
+
+- `game-of-life-pulsar.py` — Oscilátor Pulsar
+  - Výchozí konfigurace ve skriptu: šířka 60, výška 30, prodleva cca 1,0 s.
+  - Používá znak plného bloku pro živé buňky (vhodné pro husté/velké zobrazení).
+  - Umístí vzor Pulsar pomocí seznamu souřadnic a spustí simulaci.
+
+- `game-of-life-toad.py` — Oscilátor Toad (Ropucha)
+  - Typická konfigurace: šířka 30, výška 15, prodleva 1,0 s.
+  - Používá dvouznakovou reprezentaci buněk (`"o "` / `"  "`) pro přehlednější rozestupy.
+
+- `game-of-life-beacon.py` — Oscilátor Beacon (Maják, perioda 2)
+  - Typická konfigurace: šířka 30, výška 10, prodleva 1,0 s.
+  - Používá jednoznakovou reprezentaci pro živé/mrtvé buňky.
+
+- `game-of-life-blinker.py` — Oscilátor Blinker (Blikač)
+  - Typická konfigurace: šířka 15, výška 7, prodleva 0,5 s.
+  - Používá styl buněk `"o "` / `"  "`.
+
+- `game-of-life-glider.py` — Vzory kluzáků (několik Gliderů)
+  - Typická konfigurace: šířka 30, výška 15, prodleva 0,5 s.
+  - Umístí dva kluzáky a demonstruje chování toroidních hranic.
+
+- `game-of-life-gun.py` — Gosper Glider Gun (Dělo na kluzáky)
+  - Typická konfigurace: šířka 100, výška 40, nízká prodleva (např. 0,01 s) pro plynulý pohyb.
+  - Používá `boundary='fill'` (necyklické), takže generované kluzáky cestují prázdným prostorem.
+  - Využívá Rich Live s parametrem `screen=True` pro alternativní buffer (zobrazení přes celou obrazovku).
+
+- `game-of-life-lwss.py` — Vzor Lightweight spaceship (LWSS, Malá vesmírná loď)
+  - Implementuje vzor malé vesmírné lodi a vykresluje jej živě (nastavitelná konfigurace uvnitř skriptu).
+
+- `tests/` — složka pro testy (aktuálně prázdná)
+
+---
+
+## Požadavky
+
+- Python 3.8+ (doporučeno)
+- numpy
+- scipy
+- rich
+
+Nainstalujte závislosti pomocí pip:
+
+```bash
+pip install numpy scipy rich
+```
+
