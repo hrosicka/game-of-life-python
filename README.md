@@ -1,4 +1,5 @@
-[English](#english) | [Čeština](#čeština)
+[![English](https://img.shields.io/badge/lang-en-red.svg)](#english)
+[![Czech](https://img.shields.io/badge/lang-cz-blue.svg)](#čeština)
 
 <a name="english"></a>
 # Game of Life — Python Edition
