@@ -222,3 +222,67 @@ Nainstalujte závislosti pomocí pip:
 pip install numpy scipy rich
 ```
 
+(Pokud plánujete spouštět skripty ve virtuálním prostředí, nezapomeňte jej nejdříve vytvořit a aktivovat.)
+
+---
+
+## Použití
+
+Spusťte libovolný skript z vašeho terminálu. Příklady:
+
+```bash
+python game-of-life-pulsar.py
+python game-of-life-toad.py
+python game-of-life-beacon.py
+python game-of-life-blinker.py
+python game-of-life-glider.py
+python game-of-life-gun.py
+python game-of-life-lwss.py
+```
+
+Tipy:
+- Pokud není nainstalováno SciPy, skript vypíše chybu a ukončí se (vyžaduje se `scipy.signal.convolve2d`).
+- Chcete-li změnit velikost mřížky, rychlost nebo použité znaky, upravte slovník `DEFAULT_CONFIG` v horní části daného skriptu.
+- U skriptu Gosper Glider Gun je zapnut režim `screen=True` Pokud se váš terminál chová podivně, zkuste tento parametr z volání `screen=True` in the `Live(...)` odstranit.
+
+---
+
+## Rozšiřování a přidávání vzorů
+
+1. CZkopírujte existující skript (např. `game-of-life-toad.py`) a přejmenujte jej.
+2. Aktualizujte souřadnice vzoru nebo vytvořte vlastní seznam souřadnic.
+3. Podle potřeby upravte `DEFAULT_CONFIG` (šířka, výška, prodleva, znaky).
+4. Spusťte skript a sledujte výsledek.
+5. Budete-li chtít, otevřete Pull Request a sdílejte své nové vzory s ostatními!
+
+---
+
+## Řešení problémů
+
+- Vykreslování v terminálu vypadá rozbitě:
+  - Zkuste jiný font/terminál nebo upravte šířku znaků ve skriptu (některé používají dva znaky jako `"o "` pro lepší formátování).
+  - Pokud jsou problémy s barvami nebo Unicode znaky, změňte `live_cell_char`/`dead_cell_char` ve skriptu na prosté ASCII znaky.
+- Chyba při importu SciPy:
+  - Nainstalujte knihovnu pomocí `pip install scipy` (or `pip install numpy scipy`).
+- Výkon:
+  - Velmi velké mřížky s minimální prodlevou mohou být náročné na CPU. V takovém případě zvyšte `delay_seconds` nebo zmenšete rozměry mřížky.
+ 
+---
+
+## O Conwayově hře života
+
+Conwayova hra života je hra pro nula hráčů — stačí nastavit pravidla a sledovat! Z jednoduchých pravidel pro zrod a zánik buněk vznikají vzory, které oscilují, cestují prostorem a občas překvapí i samotné matematiky.
+
+[Learn more about Conway’s Game of Life](https://cs.wikipedia.org/wiki/Hra_života).
+
+---
+
+## Autor
+
+S láskou vytvořila [Hanka Robovska](https://github.com/hrosicka) 👩‍🔬
+
+---
+
+## Licence
+
+MIT Licence. Tento projekt je otevřen pro vzdělávací i zábavné účely.
