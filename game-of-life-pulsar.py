@@ -14,7 +14,7 @@ from rich.live import Live
 from rich.console import Console
 from rich.text import Text
 
-class GameOfLifePulsar:
+class GameOfLife:  # ZMĚNA: Přejmenováno z GameOfLifePulsar na GameOfLife
     """
     Simulates Conway's Game of Life focusing on the Pulsar oscillator.
     Uses SciPy for computation and Rich for smooth console output.
@@ -45,6 +45,15 @@ class GameOfLifePulsar:
         self.generation = 0 
         self.console = Console()
 
+    def set_initial_pattern(self, coords: List[Tuple[int, int]], row_offset: int = 0, col_offset: int = 0):
+        """
+        ZMĚNA: Přidána obecná metoda, kterou vyžadují testy (např. test_set_initial_pattern_with_offset_and_bounds_pulsar)
+        """
+        for r, c in coords:
+            target_r, target_c = r + row_offset, c + col_offset
+            if 0 <= target_r < self.height and 0 <= target_c < self.width:
+                self.grid[target_r, target_c] = 1
+
     def set_pulsar_pattern(self, row_offset: int, col_offset: int):
         """
         Defines and places the Pulsar pattern (Period 3 oscillator).
@@ -62,11 +71,7 @@ class GameOfLifePulsar:
             (11, 1), (11, 6), (11, 8), (11, 13),
             (13, 3), (13, 4), (13, 5), (13, 9), (13, 10), (13, 11),
         ]
-        
-        for r, c in pattern_coords:
-            target_r, target_c = r + row_offset, c + col_offset
-            if 0 <= target_r < self.height and 0 <= target_c < self.width:
-                self.grid[target_r, target_c] = 1
+        self.set_initial_pattern(pattern_coords, row_offset, col_offset)
 
     def get_grid_text(self) -> Text:
         """Generates the visual frame for Rich rendering."""
@@ -108,8 +113,8 @@ class GameOfLifePulsar:
         self.grid = (survival | birth).astype(np.int8)
         self.generation += 1
 
-    def run(self):
-        """Starts the main simulation loop."""
+    def run_simulation(self):
+        """ZMĚNA: Přejmenováno z run na run_simulation pro kompatibilitu s testy."""
         self.console.clear()
         try:
             with Live(self.get_grid_text(), console=self.console, screen=True) as live:
@@ -120,6 +125,11 @@ class GameOfLifePulsar:
         except KeyboardInterrupt:
             self.console.print("\n[bold yellow]Simulation stopped by user.[/bold yellow]")
 
+    def run(self):
+        """Ponecháno pro zpětnou kompatibilitu, pokud metodu .run() voláš odjinud."""
+        self.run_simulation()
+
+
 if __name__ == "__main__":
     # Pulsar fits perfectly in a 60x30 grid
     config = {
@@ -128,9 +138,9 @@ if __name__ == "__main__":
         "delay_seconds": 0.1, 
     }
 
-    sim = GameOfLifePulsar(config)
+    sim = GameOfLife(config)  # Použití nového názvu třídy
     
     # Place Pulsar roughly in the center
     sim.set_pulsar_pattern(row_offset=7, col_offset=23)
     
-    sim.run()
+    sim.run_simulation()
