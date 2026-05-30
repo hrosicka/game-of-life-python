@@ -4,10 +4,29 @@
 <a name="english"></a>
 # Game of Life — Python Edition
 
-![Python](https://img.shields.io/badge/language-python-blue.svg)
-![License](https://img.shields.io/github/license/hrosicka/game-of-life-python)
-![Last Commit](https://img.shields.io/github/last-commit/hrosicka/game-of-life-python)
-![GitHub stars](https://img.shields.io/github/stars/hrosicka/game-of-life-python?style=social)
+<p align="center">
+  <a href="https://github.com/hrosicka/game-of-life-python/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/hrosicka/game-of-life-python" alt="License">
+  </a>
+  <a href="https://github.com/hrosicka/game-of-life-python/issues">
+    <img src="https://img.shields.io/github/issues/hrosicka/game-of-life-python?logo=github" alt="Open Issues">
+  </a>
+  <a href="https://github.com/hrosicka/game-of-life-python/pulls">
+    <img src="https://img.shields.io/github/issues-pr/hrosicka/game-of-life-python?logo=github" alt="Pull Requests">
+  </a>
+  <img src="https://img.shields.io/github/repo-size/hrosicka/game-of-life-python?color=blueviolet" alt="Repo Size">
+  <img src="https://img.shields.io/github/last-commit/hrosicka/game-of-life-python?logo=github" alt="Last Commit">
+  <img src="https://img.shields.io/github/languages/top/hrosicka/game-of-life-python?logo=code" alt="Top Language">
+  <a href="https://github.com/hrosicka/game-of-life-python/stargazers">
+    <img src="https://img.shields.io/github/stars/hrosicka/game-of-life-python?style=social" alt="Stars">
+  </a>
+  <a href="https://github.com/hrosicka/game-of-life-python/network/members">
+    <img src="https://img.shields.io/github/forks/hrosicka/game-of-life-python?style=social" alt="Forks">
+  </a>
+  <a href="https://github.com/hrosicka/game-of-life-python/watchers">
+    <img src="https://img.shields.io/github/watchers/hrosicka/game-of-life-python?style=social" alt="Watchers">
+  </a>
+</p>
 
 A set of small, focused Conway's Game of Life simulations implemented in Python. Each script runs a classic pattern (oscillators, gliders, Gosper glider gun, LWSS, etc.) and renders a live, animated view in the terminal using [Rich](https://github.com/Textualize/rich). Neighbor counting is implemented efficiently using 2D convolution via [SciPy](https://www.scipy.org) (or NumPy + SciPy).
 
