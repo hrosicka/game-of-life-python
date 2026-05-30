@@ -17,6 +17,9 @@
   <img src="https://img.shields.io/github/repo-size/hrosicka/game-of-life-python?color=blueviolet" alt="Repo Size">
   <img src="https://img.shields.io/github/last-commit/hrosicka/game-of-life-python?logo=github" alt="Last Commit">
   <img src="https://img.shields.io/github/languages/top/hrosicka/game-of-life-python?logo=code" alt="Top Language">
+  <a href="https://github.com/hrosicka/game-of-life-python/actions/workflows/tests.yml">
+    <img src="https://github.com/hrosicka/game-of-life-python/actions/workflows/tests.yml/badge.svg" alt="Tests">
+  </a>
   <a href="https://github.com/hrosicka/game-of-life-python/stargazers">
     <img src="https://img.shields.io/github/stars/hrosicka/game-of-life-python?style=social" alt="Stars">
   </a>
@@ -168,10 +171,32 @@ MIT License. This project is open for educational and entertainment use.
 <a name="čeština"></a>
 # Hra života — Python edice
 
-![Python](https://img.shields.io/badge/language-python-blue.svg)
-![Licence](https://img.shields.io/github/license/hrosicka/game-of-life-python)
-![Poslední commit](https://img.shields.io/github/last-commit/hrosicka/game-of-life-python)
-![GitHub stars](https://img.shields.io/github/stars/hrosicka/game-of-life-python?style=social)
+<p align="center">
+  <a href="https://github.com/hrosicka/game-of-life-python/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/hrosicka/game-of-life-python" alt="License">
+  </a>
+  <a href="https://github.com/hrosicka/game-of-life-python/issues">
+    <img src="https://img.shields.io/github/issues/hrosicka/game-of-life-python?logo=github" alt="Open Issues">
+  </a>
+  <a href="https://github.com/hrosicka/game-of-life-python/pulls">
+    <img src="https://img.shields.io/github/issues-pr/hrosicka/game-of-life-python?logo=github" alt="Pull Requests">
+  </a>
+  <img src="https://img.shields.io/github/repo-size/hrosicka/game-of-life-python?color=blueviolet" alt="Repo Size">
+  <img src="https://img.shields.io/github/last-commit/hrosicka/game-of-life-python?logo=github" alt="Last Commit">
+  <img src="https://img.shields.io/github/languages/top/hrosicka/game-of-life-python?logo=code" alt="Top Language">
+  <a href="https://github.com/hrosicka/game-of-life-python/actions/workflows/tests.yml">
+    <img src="https://github.com/hrosicka/game-of-life-python/actions/workflows/tests.yml/badge.svg" alt="Tests">
+  </a>
+  <a href="https://github.com/hrosicka/game-of-life-python/stargazers">
+    <img src="https://img.shields.io/github/stars/hrosicka/game-of-life-python?style=social" alt="Stars">
+  </a>
+  <a href="https://github.com/hrosicka/game-of-life-python/network/members">
+    <img src="https://img.shields.io/github/forks/hrosicka/game-of-life-python?style=social" alt="Forks">
+  </a>
+  <a href="https://github.com/hrosicka/game-of-life-python/watchers">
+    <img src="https://img.shields.io/github/watchers/hrosicka/game-of-life-python?style=social" alt="Watchers">
+  </a>
+</p>
 
 Sada malých, úzce zaměřených simulací Conwayovy hry života implementovaných v Pythonu. Každý skript spouští klasický vzor (oscilátory, kluzáky, Gosperovo dělo na kluzáky, LWSS atd.) a vykresluje živou animaci přímo v terminálu pomocí knihovny [Rich](https://github.com/Textualize/rich). Počítání sousedů je efektivně implementováno pomocí 2D konvoluce skrze [SciPy](https://www.scipy.org) (nebo NumPy + SciPy).
 
