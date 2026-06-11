@@ -10,22 +10,23 @@ except ImportError:
     exit()
 
 # Import Rich for professional terminal rendering
-from rich.live import Live 
+from rich.live import Live
 from rich.console import Console
 from rich.text import Text
+
 
 class GameOfLife:  # ZMĚNA: Přejmenováno z GameOfLifePulsar na GameOfLife
     """
     Simulates Conway's Game of Life focusing on the Pulsar oscillator.
     Uses SciPy for computation and Rich for smooth console output.
     """
-    
+
     DEFAULT_CONFIG: Dict[str, Any] = {
         "width": 60,
         "height": 30,
         "delay_seconds": 0.1,  # Standard pace for Pulsar oscillation
         "live_cell_char": "█",  # Full block for high visibility
-        "dead_cell_char": " "
+        "dead_cell_char": " ",
     }
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
@@ -33,7 +34,7 @@ class GameOfLife:  # ZMĚNA: Přejmenováno z GameOfLifePulsar na GameOfLife
         final_config = self.DEFAULT_CONFIG.copy()
         if config:
             final_config.update(config)
-        
+
         self.width = final_config["width"]
         self.height = final_config["height"]
         self.delay_seconds = final_config["delay_seconds"]
@@ -42,10 +43,12 @@ class GameOfLife:  # ZMĚNA: Přejmenováno z GameOfLifePulsar na GameOfLife
 
         # Initialize grid with zeros (all dead)
         self.grid = np.zeros((self.height, self.width), dtype=np.int8)
-        self.generation = 0 
+        self.generation = 0
         self.console = Console()
 
-    def set_initial_pattern(self, coords: List[Tuple[int, int]], row_offset: int = 0, col_offset: int = 0):
+    def set_initial_pattern(
+        self, coords: List[Tuple[int, int]], row_offset: int = 0, col_offset: int = 0
+    ):
         """
         ZMĚNA: Přidána obecná metoda, kterou vyžadují testy (např. test_set_initial_pattern_with_offset_and_bounds_pulsar)
         """
@@ -60,48 +63,85 @@ class GameOfLife:  # ZMĚNA: Přejmenováno z GameOfLifePulsar na GameOfLife
         Coordinates are relative to the offset.
         """
         pattern_coords = [
-            (1, 3), (1, 4), (1, 5), (1, 9), (1, 10), (1, 11),
-            (3, 1), (3, 6), (3, 8), (3, 13),
-            (4, 1), (4, 6), (4, 8), (4, 13),
-            (5, 1), (5, 6), (5, 8), (5, 13),
-            (6, 3), (6, 4), (6, 5), (6, 9), (6, 10), (6, 11),
-            (8, 3), (8, 4), (8, 5), (8, 9), (8, 10), (8, 11),
-            (9, 1), (9, 6), (9, 8), (9, 13),
-            (10, 1), (10, 6), (10, 8), (10, 13),
-            (11, 1), (11, 6), (11, 8), (11, 13),
-            (13, 3), (13, 4), (13, 5), (13, 9), (13, 10), (13, 11),
+            (1, 3),
+            (1, 4),
+            (1, 5),
+            (1, 9),
+            (1, 10),
+            (1, 11),
+            (3, 1),
+            (3, 6),
+            (3, 8),
+            (3, 13),
+            (4, 1),
+            (4, 6),
+            (4, 8),
+            (4, 13),
+            (5, 1),
+            (5, 6),
+            (5, 8),
+            (5, 13),
+            (6, 3),
+            (6, 4),
+            (6, 5),
+            (6, 9),
+            (6, 10),
+            (6, 11),
+            (8, 3),
+            (8, 4),
+            (8, 5),
+            (8, 9),
+            (8, 10),
+            (8, 11),
+            (9, 1),
+            (9, 6),
+            (9, 8),
+            (9, 13),
+            (10, 1),
+            (10, 6),
+            (10, 8),
+            (10, 13),
+            (11, 1),
+            (11, 6),
+            (11, 8),
+            (11, 13),
+            (13, 3),
+            (13, 4),
+            (13, 5),
+            (13, 9),
+            (13, 10),
+            (13, 11),
         ]
         self.set_initial_pattern(pattern_coords, row_offset, col_offset)
 
     def get_grid_text(self) -> Text:
         """Generates the visual frame for Rich rendering."""
         output = ["Conway's Game of Life: Pulsar (Period 3 Oscillator)"]
-        
+
         # Consistent border design
         separator = "-" * self.width
         output.append("+" + separator + "+")
-        
+
         # Build grid content
         for row in self.grid:
-            line = "".join([self.live_char if cell == 1 else self.dead_char for cell in row])
+            line = "".join(
+                [self.live_char if cell == 1 else self.dead_char for cell in row]
+            )
             output.append("|" + line + "|")
-        
+
         output.append("+" + separator + "+")
-        output.append(f"Dimensions: {self.height}x{self.width} | Gen: {self.generation} | Ctrl+C to stop")
-        
-        return Text('\n'.join(output), style="bold magenta")
+        output.append(
+            f"Dimensions: {self.height}x{self.width} | Gen: {self.generation} | Ctrl+C to stop"
+        )
+
+        return Text("\n".join(output), style="bold magenta")
 
     def _get_live_neighbor_count(self) -> np.ndarray:
         """Calculates neighbors using 2D convolution with toroidal (wrap) boundaries."""
-        kernel = np.array([[1, 1, 1],
-                           [1, 0, 1],
-                           [1, 1, 1]], dtype=np.int8)
-        
+        kernel = np.array([[1, 1, 1], [1, 0, 1], [1, 1, 1]], dtype=np.int8)
+
         return convolve2d(
-            self.grid, 
-            kernel, 
-            mode='same', 
-            boundary='wrap' # Cyclic field
+            self.grid, kernel, mode="same", boundary="wrap"  # Cyclic field
         ).astype(np.int8)
 
     def next_generation(self):
@@ -109,7 +149,7 @@ class GameOfLife:  # ZMĚNA: Přejmenováno z GameOfLifePulsar na GameOfLife
         neighbors = self._get_live_neighbor_count()
         survival = (self.grid == 1) & ((neighbors == 2) | (neighbors == 3))
         birth = (self.grid == 0) & (neighbors == 3)
-        
+
         self.grid = (survival | birth).astype(np.int8)
         self.generation += 1
 
@@ -123,7 +163,9 @@ class GameOfLife:  # ZMĚNA: Přejmenováno z GameOfLifePulsar na GameOfLife
                     live.update(self.get_grid_text())
                     time.sleep(self.delay_seconds)
         except KeyboardInterrupt:
-            self.console.print("\n[bold yellow]Simulation stopped by user.[/bold yellow]")
+            self.console.print(
+                "\n[bold yellow]Simulation stopped by user.[/bold yellow]"
+            )
 
     def run(self):
         """Ponecháno pro zpětnou kompatibilitu, pokud metodu .run() voláš odjinud."""
@@ -135,12 +177,12 @@ if __name__ == "__main__":
     config = {
         "width": 60,
         "height": 30,
-        "delay_seconds": 0.1, 
+        "delay_seconds": 0.1,
     }
 
     sim = GameOfLife(config)  # Použití nového názvu třídy
-    
+
     # Place Pulsar roughly in the center
     sim.set_pulsar_pattern(row_offset=7, col_offset=23)
-    
+
     sim.run_simulation()
