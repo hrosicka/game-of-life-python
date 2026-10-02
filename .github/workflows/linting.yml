@@ -31,7 +31,7 @@ jobs:
     
     # isort - import sorting
     - name: Check import sorting with isort
-      run: isort --check-only --verbose .
+      run: isort --profile black --check-only --verbose .
       continue-on-error: false
     
     # Flake8 - linting
