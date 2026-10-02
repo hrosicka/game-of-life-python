@@ -1,0 +1,75 @@
+name: Code Quality & Linting
+
+on: 
+  push:
+    branches: [master, main, develop]
+  pull_request:
+    branches: [master, main, develop]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    # Black - code formatting check
+    - name: Check code formatting with Black
+      run: black --check --verbose .
+      continue-on-error: false
+    
+    # isort - import sorting
+    - name: Check import sorting with isort
+      run: isort --check-only --verbose .
+      continue-on-error: false
+    
+    # Flake8 - linting
+    - name: Lint with Flake8
+      run: flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+      continue-on-error: false
+    
+    # MyPy - type checking
+    - name: Type check with MyPy
+      run: mypy . --ignore-missing-imports --strict
+      continue-on-error: true  # Type checking can fail without breaking the build
+    
+    # Pylint - additional linting (optional)
+    - name: Lint with Pylint
+      run: pylint --rcfile=.pylintrc game-of-life-*.py || true
+      continue-on-error: true
+
+  security:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install bandit safety
+    
+    # Bandit - security vulnerabilities
+    - name: Security check with Bandit
+      run: bandit -r . -ll || true
+      continue-on-error: true
+    
+    # Safety - dependency vulnerabilities
+    - name: Check dependencies with Safety
+      run: safety check --json || true
+      continue-on-error: true
