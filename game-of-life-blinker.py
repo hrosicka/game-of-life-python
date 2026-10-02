@@ -3,6 +3,7 @@ from typing import Any, Dict, Optional, Tuple
 
 import numpy as np
 from rich.console import Console
+
 # Import Rich for smooth and professional console rendering
 # Pokud ještě nemáš, instaluj: pip install rich
 from rich.live import Live

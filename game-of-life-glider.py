@@ -3,6 +3,7 @@ from typing import Any, Dict, Optional
 
 import numpy as np
 from rich.console import Console
+
 # Import Rich for professional console rendering
 from rich.live import Live
 from rich.text import Text
