@@ -4,14 +4,14 @@ Conway's Game of Life: R-pentomino Evolution
 Optimized for terminal performance using NumPy/SciPy and Rich.
 """
 
-import time
 import sys
+import time
 from dataclasses import dataclass
-from typing import Tuple, List, Optional
+from typing import List, Optional, Tuple
 
 import numpy as np
-from rich.live import Live
 from rich.console import Console
+from rich.live import Live
 from rich.text import Text
 
 # Try-except block is moved to the top for immediate dependency check
