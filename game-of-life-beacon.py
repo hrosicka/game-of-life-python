@@ -1,6 +1,7 @@
-import numpy as np
 import time
-from typing import Tuple, Dict, Any, Optional
+from typing import Any, Dict, Optional, Tuple
+
+import numpy as np
 
 # Import SciPy for fast neighbor counting (Convolution)
 try:
@@ -9,9 +10,10 @@ except ImportError:
     print("Error: SciPy must be installed for this version (pip install scipy).")
     exit()
 
+from rich.console import Console
+
 # Import Rich for smooth, live console rendering
 from rich.live import Live
-from rich.console import Console
 from rich.text import Text
 
 
@@ -154,7 +156,6 @@ class GameOfLife:
 
 # --- Main execution block ---
 if __name__ == "__main__":
-
     # Beacon Pattern: (row, column) offsets
     BEACON_PATTERN_COORDS = [
         (0, 0),
