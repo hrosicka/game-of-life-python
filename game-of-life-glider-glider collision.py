@@ -1,6 +1,7 @@
-import numpy as np
 import time
-from typing import Tuple, Dict, Any, Optional, List
+from typing import Any, Dict, List, Optional, Tuple
+
+import numpy as np
 
 # Check for SciPy dependency at startup
 try:
@@ -9,8 +10,8 @@ except ImportError:
     print("Error: SciPy must be installed (pip install scipy).")
     exit()
 
-from rich.live import Live
 from rich.console import Console
+from rich.live import Live
 from rich.text import Text
 
 

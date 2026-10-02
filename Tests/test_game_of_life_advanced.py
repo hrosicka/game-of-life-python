@@ -1,5 +1,6 @@
-from pathlib import Path
 import importlib.util
+from pathlib import Path
+
 import numpy as np
 import numpy.testing as npt
 

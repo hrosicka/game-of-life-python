@@ -1,13 +1,14 @@
-import numpy as np
 import time
-from typing import Dict, Any, Optional, Tuple
-from scipy.signal import convolve2d
+from typing import Any, Dict, Optional, Tuple
+
+import numpy as np
+from rich.console import Console
 
 # Import Rich for smooth and professional console rendering
 # Pokud ještě nemáš, instaluj: pip install rich
 from rich.live import Live
-from rich.console import Console
 from rich.text import Text
+from scipy.signal import convolve2d
 
 # Zkontrolovat instalaci SciPy (stejně jako v tvém původním Python kódu)
 try:
@@ -148,7 +149,6 @@ class GameOfLife:
 
 # --- Hlavní Spouštěcí Blok ---
 if __name__ == "__main__":
-
     # Inicializace s výchozími rozměry 15x7 a zpožděním 0.5s
     game = GameOfLife()
 

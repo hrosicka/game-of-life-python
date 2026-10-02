@@ -1,13 +1,13 @@
-import numpy as np
 import time
-import os
-from typing import Tuple, Dict, Any, Optional
-from scipy.signal import convolve2d
+from typing import Any, Dict, Optional, Tuple
+
+import numpy as np
+from rich.console import Console
 
 # Import Rich for smooth and professional console rendering
 from rich.live import Live
-from rich.console import Console
 from rich.text import Text
+from scipy.signal import convolve2d
 
 # Check for SciPy installation
 try:
@@ -84,7 +84,7 @@ class GameOfLife:
         output.append(
             f"Dimensions: {self.height}x{self.width} | Generation: {self.generation}"
         )
-        output.append(f"(Press Ctrl+C to stop)")
+        output.append("(Press Ctrl+C to stop)")
 
         # Return a Rich Text object for smooth printing
         return Text("\n".join(output))
@@ -145,7 +145,6 @@ class GameOfLife:
 
 # --- Main Execution Block ---
 if __name__ == "__main__":
-
     game = GameOfLife()
 
     # Initialization - TOAD oscillators pattern
