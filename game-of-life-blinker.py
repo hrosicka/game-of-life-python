@@ -148,7 +148,6 @@ class GameOfLife:
 
 # --- Hlavní Spouštěcí Blok ---
 if __name__ == "__main__":
-
     # Inicializace s výchozími rozměry 15x7 a zpožděním 0.5s
     game = GameOfLife()
 
