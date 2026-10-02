@@ -1,11 +1,11 @@
-import numpy as np
 import time
-from typing import Dict, Any, Optional
-from scipy.signal import convolve2d
+from typing import Any, Dict, Optional
 
-from rich.live import Live
+import numpy as np
 from rich.console import Console
+from rich.live import Live
 from rich.text import Text
+from scipy.signal import convolve2d
 
 
 class LWSSAgingSimulation:
