@@ -1,12 +1,13 @@
-import numpy as np
 import time
-from typing import Tuple, Dict, Any, Optional
-from scipy.signal import convolve2d
+from typing import Any, Dict, Optional
+
+import numpy as np
+from rich.console import Console
 
 # Import Rich for professional console rendering
 from rich.live import Live
-from rich.console import Console
 from rich.text import Text
+from scipy.signal import convolve2d
 
 
 class GliderSimulation:
@@ -54,7 +55,7 @@ class GliderSimulation:
 
     def get_grid_text(self) -> Text:
         """Generates the Rich-formatted text for the current grid state."""
-        output = [f"[bold cyan]Conway's Game of Life - Glider Patterns[/bold cyan]"]
+        output = ["[bold cyan]Conway's Game of Life - Glider Patterns[/bold cyan]"]
 
         # Grid content rendering
         for row in self.grid:
