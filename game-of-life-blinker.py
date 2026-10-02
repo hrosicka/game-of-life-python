@@ -1,13 +1,13 @@
-import numpy as np
 import time
-from typing import Dict, Any, Optional, Tuple
-from scipy.signal import convolve2d
+from typing import Any, Dict, Optional, Tuple
 
+import numpy as np
+from rich.console import Console
 # Import Rich for smooth and professional console rendering
 # Pokud ještě nemáš, instaluj: pip install rich
 from rich.live import Live
-from rich.console import Console
 from rich.text import Text
+from scipy.signal import convolve2d
 
 # Zkontrolovat instalaci SciPy (stejně jako v tvém původním Python kódu)
 try:

@@ -11,7 +11,6 @@ except ImportError:
     exit()
 
 from rich.console import Console
-
 # Import Rich for professional terminal rendering
 from rich.live import Live
 from rich.text import Text
