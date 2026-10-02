@@ -1,6 +1,7 @@
-import numpy as np
 import time
-from typing import Tuple, Dict, Any, Optional, List
+from typing import Any, Dict, List, Optional, Tuple
+
+import numpy as np
 
 # Check for SciPy installation for fast 2D convolution
 try:
@@ -9,9 +10,10 @@ except ImportError:
     print("Error: SciPy must be installed (pip install scipy).")
     exit()
 
+from rich.console import Console
+
 # Import Rich for professional terminal rendering
 from rich.live import Live
-from rich.console import Console
 from rich.text import Text
 
 
@@ -141,7 +143,10 @@ class GameOfLife:  # ZMĚNA: Přejmenováno z GameOfLifePulsar na GameOfLife
         kernel = np.array([[1, 1, 1], [1, 0, 1], [1, 1, 1]], dtype=np.int8)
 
         return convolve2d(
-            self.grid, kernel, mode="same", boundary="wrap"  # Cyclic field
+            self.grid,
+            kernel,
+            mode="same",
+            boundary="wrap",  # Cyclic field
         ).astype(np.int8)
 
     def next_generation(self):
