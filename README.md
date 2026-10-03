@@ -6,28 +6,34 @@
 
 <p align="center">
   <a href="https://github.com/hrosicka/game-of-life-python/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/hrosicka/game-of-life-python" alt="License">
+    <img src="https://img.shields.io/github/license/hrosicka/game-of-life-python?style=for-the-badge&logo=opensourceinitiative&logoColor=white" alt="License">
   </a>
   <a href="https://github.com/hrosicka/game-of-life-python/issues">
-    <img src="https://img.shields.io/github/issues/hrosicka/game-of-life-python?logo=github" alt="Open Issues">
+    <img src="https://img.shields.io/github/issues/hrosicka/game-of-life-python?style=for-the-badge&logo=github&logoColor=white" alt="Open Issues">
   </a>
   <a href="https://github.com/hrosicka/game-of-life-python/pulls">
-    <img src="https://img.shields.io/github/issues-pr/hrosicka/game-of-life-python?logo=github" alt="Pull Requests">
+    <img src="https://img.shields.io/github/issues-pr/hrosicka/game-of-life-python?style=for-the-badge&logo=git&logoColor=white" alt="Pull Requests">
   </a>
-  <img src="https://img.shields.io/github/repo-size/hrosicka/game-of-life-python?color=blueviolet" alt="Repo Size">
-  <img src="https://img.shields.io/github/last-commit/hrosicka/game-of-life-python?logo=github" alt="Last Commit">
-  <img src="https://img.shields.io/github/languages/top/hrosicka/game-of-life-python?logo=code" alt="Top Language">
+  <a href="https://github.com/hrosicka/game-of-life-python">
+    <img src="https://img.shields.io/github/repo-size/hrosicka/game-of-life-python?style=for-the-badge&color=blueviolet" alt="Repo Size">
+  </a>
+  <a href="https://github.com/hrosicka/game-of-life-python/commits/master">
+    <img src="https://img.shields.io/github/last-commit/hrosicka/game-of-life-python?style=for-the-badge&logo=git&logoColor=white" alt="Last Commit">
+  </a>
+  <a href="https://github.com/hrosicka/game-of-life-python">
+    <img src="https://img.shields.io/github/languages/top/hrosicka/game-of-life-python?style=for-the-badge&logo=python&logoColor=white" alt="Top Language">
+  </a>
   <a href="https://github.com/hrosicka/game-of-life-python/actions/workflows/tests.yml">
-    <img src="https://github.com/hrosicka/game-of-life-python/actions/workflows/tests.yml/badge.svg" alt="Tests">
+    <img src="https://img.shields.io/github/actions/workflow/status/hrosicka/game-of-life-python/tests.yml?branch=master&style=for-the-badge&logo=githubactions&logoColor=white&label=tests" alt="Tests">
   </a>
   <a href="https://github.com/hrosicka/game-of-life-python/stargazers">
-    <img src="https://img.shields.io/github/stars/hrosicka/game-of-life-python?style=social" alt="Stars">
+    <img src="https://img.shields.io/github/stars/hrosicka/game-of-life-python?style=for-the-badge&logo=github&logoColor=white" alt="Stars">
   </a>
   <a href="https://github.com/hrosicka/game-of-life-python/network/members">
-    <img src="https://img.shields.io/github/forks/hrosicka/game-of-life-python?style=social" alt="Forks">
+    <img src="https://img.shields.io/github/forks/hrosicka/game-of-life-python?style=for-the-badge&logo=github&logoColor=white" alt="Forks">
   </a>
   <a href="https://github.com/hrosicka/game-of-life-python/watchers">
-    <img src="https://img.shields.io/github/watchers/hrosicka/game-of-life-python?style=social" alt="Watchers">
+    <img src="https://img.shields.io/github/watchers/hrosicka/game-of-life-python?style=for-the-badge&logo=github&logoColor=white" alt="Watchers">
   </a>
 </p>
 
@@ -173,28 +179,34 @@ MIT License. This project is open for educational and entertainment use.
 
 <p align="center">
   <a href="https://github.com/hrosicka/game-of-life-python/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/hrosicka/game-of-life-python" alt="License">
+    <img src="https://img.shields.io/github/license/hrosicka/game-of-life-python?style=for-the-badge&logo=opensourceinitiative&logoColor=white" alt="License">
   </a>
   <a href="https://github.com/hrosicka/game-of-life-python/issues">
-    <img src="https://img.shields.io/github/issues/hrosicka/game-of-life-python?logo=github" alt="Open Issues">
+    <img src="https://img.shields.io/github/issues/hrosicka/game-of-life-python?style=for-the-badge&logo=github&logoColor=white" alt="Open Issues">
   </a>
   <a href="https://github.com/hrosicka/game-of-life-python/pulls">
-    <img src="https://img.shields.io/github/issues-pr/hrosicka/game-of-life-python?logo=github" alt="Pull Requests">
+    <img src="https://img.shields.io/github/issues-pr/hrosicka/game-of-life-python?style=for-the-badge&logo=git&logoColor=white" alt="Pull Requests">
   </a>
-  <img src="https://img.shields.io/github/repo-size/hrosicka/game-of-life-python?color=blueviolet" alt="Repo Size">
-  <img src="https://img.shields.io/github/last-commit/hrosicka/game-of-life-python?logo=github" alt="Last Commit">
-  <img src="https://img.shields.io/github/languages/top/hrosicka/game-of-life-python?logo=code" alt="Top Language">
+  <a href="https://github.com/hrosicka/game-of-life-python">
+    <img src="https://img.shields.io/github/repo-size/hrosicka/game-of-life-python?style=for-the-badge&color=blueviolet" alt="Repo Size">
+  </a>
+  <a href="https://github.com/hrosicka/game-of-life-python/commits/master">
+    <img src="https://img.shields.io/github/last-commit/hrosicka/game-of-life-python?style=for-the-badge&logo=git&logoColor=white" alt="Last Commit">
+  </a>
+  <a href="https://github.com/hrosicka/game-of-life-python">
+    <img src="https://img.shields.io/github/languages/top/hrosicka/game-of-life-python?style=for-the-badge&logo=python&logoColor=white" alt="Top Language">
+  </a>
   <a href="https://github.com/hrosicka/game-of-life-python/actions/workflows/tests.yml">
-    <img src="https://github.com/hrosicka/game-of-life-python/actions/workflows/tests.yml/badge.svg" alt="Tests">
+    <img src="https://img.shields.io/github/actions/workflow/status/hrosicka/game-of-life-python/tests.yml?branch=master&style=for-the-badge&logo=githubactions&logoColor=white&label=tests" alt="Tests">
   </a>
   <a href="https://github.com/hrosicka/game-of-life-python/stargazers">
-    <img src="https://img.shields.io/github/stars/hrosicka/game-of-life-python?style=social" alt="Stars">
+    <img src="https://img.shields.io/github/stars/hrosicka/game-of-life-python?style=for-the-badge&logo=github&logoColor=white" alt="Stars">
   </a>
   <a href="https://github.com/hrosicka/game-of-life-python/network/members">
-    <img src="https://img.shields.io/github/forks/hrosicka/game-of-life-python?style=social" alt="Forks">
+    <img src="https://img.shields.io/github/forks/hrosicka/game-of-life-python?style=for-the-badge&logo=github&logoColor=white" alt="Forks">
   </a>
   <a href="https://github.com/hrosicka/game-of-life-python/watchers">
-    <img src="https://img.shields.io/github/watchers/hrosicka/game-of-life-python?style=social" alt="Watchers">
+    <img src="https://img.shields.io/github/watchers/hrosicka/game-of-life-python?style=for-the-badge&logo=github&logoColor=white" alt="Watchers">
   </a>
 </p>
 
